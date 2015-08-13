@@ -1,15 +1,18 @@
-app.controller('RegisterController', function($scope, $rootScope, $http) {
+app.controller('RegisterController', function($scope, $rootScope, $http, $state) {
   $scope.credentials = {
     username: '',
     password: ''
   };
 
   $scope.register = function (credentials) {
-    $http.post('/api/user/register', credentials).then(function(user) {
-      console.log("user created!");
+    $http.post('/api/user/register', credentials).then(function(data) {
+      console.log(data);
+      if (data.status === 200) {
+        console.log("User created!");
+
+        $state.go('home');
+      }
     });
   };
-
-  $scope.msgFromScope = "...And I'm a message from the HomeController scope, just so you know that I work!";
 
 });

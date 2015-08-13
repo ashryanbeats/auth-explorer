@@ -3,21 +3,6 @@ var mongoose = require('mongoose');
 var User = require('./user.model');
 
 module.exports = {
- //  index: function (req, res) {
- //    NodeModule
- //      .find()
- //      .exec()
- //      .then(function(nodeModules) {
- //        res.send(nodeModules);
- //      });
- // },
- // create: function(req, res, next) {
- //    NodeModule
- //      .create(req.body, function(err, nodeModule){
- //        if(err) return next(err);
- //        res.send(nodeModule);
- //      });
- //  } 
 
  registerPost: function(req, res) {
   console.log("hit registerPost()");
@@ -26,15 +11,24 @@ module.exports = {
     if (err) res.sendStatus(401);
 
     passport.authenticate('local')(req, res, function() {
-      res.sendStatus(201);
+      console.log(req.user);
+      
+      res.json(req.user);
     });
   });
  },
 
+ loginPost: function(req, res) {
+  console.log("hit loginPost()");
+
+  res.json(req.user);
+ },
+
  logoutGet: function(req, res) {
   console.log("hit logoutGet()");
+
   req.logout();
-  res.redirect('/');
+  res.sendStatus(200);
  }
 };
 

@@ -1,19 +1,16 @@
-app.controller('LoginController', function($scope, $rootScope, $http) {
+app.controller('LoginController', function($scope, $rootScope, $http, $state) {
   $scope.credentials = {
     username: '',
     password: ''
   };
 
-  $scope.register = function (credentials) {
-    $http.post('/api/user/register', credentials).then(function(user) {
-      console.log("user created!");
+  $scope.login = function (credentials) {
+    $http.post('/api/user/login', credentials).then(function(data) {
+      console.log("user logged in!");
+      console.log(data);
+      
+      $state.go('home');
     });
   };
-
-  $scope.logout = function() {
-    $http.get('/api/user/logout');
-  };
-
-  $scope.msgFromScope = "...And I'm a message from the HomeController scope, just so you know that I work!";
 
 });
